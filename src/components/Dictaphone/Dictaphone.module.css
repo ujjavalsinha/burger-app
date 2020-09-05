@@ -1,0 +1,51 @@
+.container{
+    display : flex;
+    height : 250px;
+    flex-direction: column;
+    align-items : center;
+    justify-content : space-around;
+    
+
+}
+.start_spinner{
+    display : flex;
+    align-items : center;
+    justify-content: space-between;
+}
+
+.spinner {
+    
+}
+.start{
+    cursor : pointer;
+    width : 30px;
+    height : 30px;
+    flex : 1;
+}
+
+.emptytext{
+    flex : 1;
+}
+
+.stop{
+    font-size : 20px;
+    background-color : rgb(230, 114, 114);
+    padding : 10px 20px 10px 20px;
+    cursor : pointer;
+}
+
+.reset{
+    font-size : 20px;
+    background-color : #bcffb9;
+    border : none;
+    border-radius : 20px;
+    padding : 10px 20px 10px 20px;
+    cursor : pointer;
+}
+
+.reset:focus{
+    outline : none;
+}
+.container > p{
+    font-size : 20px;
+}
