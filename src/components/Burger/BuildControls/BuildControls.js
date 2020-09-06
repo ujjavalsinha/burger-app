@@ -19,6 +19,12 @@ const BuildControls = (props) =>{
                 deleted={()=>props.deletedIngredient(ingredient.type)} 
                 added={()=>props.addedIngredient(ingredient.type)}/>
            ))} 
+           <button 
+            className={styles.OrderButton} 
+            onClick={props.ordered} 
+            disabled={!props.purchasable}>
+            ORDER NOW
+            </button>
         </div>
     )
 }
