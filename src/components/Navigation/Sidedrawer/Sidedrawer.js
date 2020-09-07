@@ -13,7 +13,10 @@ const Sidedrawer = props =>{
     }
     return (
         <Auxiliary>
-            <Backdrop show={props.open} clicked={props.closed}/>
+            <div className={styles.Backdrop}>
+                <Backdrop show={props.open} clicked={props.closed}/>
+            </div>
+            
             <div className={attachclass.join(' ')} >
                 
                 <div className={styles.Logo}>
