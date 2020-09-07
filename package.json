@@ -2,7 +2,7 @@
   "name": "top-ramen-app",
   "version": "0.1.0",
   "private": true,
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "dependencies": {
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",
