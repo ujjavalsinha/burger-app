@@ -1,4 +1,5 @@
 .Logo{
+    animation : transitionIn 1s;
     background-color :white;
     height : 100%;
     padding : 8px;
@@ -9,3 +10,14 @@
 .Logo img{
     height : 100%;
 }
+
+@keyframes transitionIn{
+    from{
+      /* opacity : 0; */
+      transform : rotateX(3.14rad)
+    }
+  
+    to{
+      transform : rotateX(0)
+    }
+  }

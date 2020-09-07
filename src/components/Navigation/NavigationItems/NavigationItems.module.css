@@ -1,4 +1,5 @@
 .NavigationItems {
+    animation : transitionIn 1s;
     margin : 0;
     padding : 0;
     list-style : none;
@@ -13,3 +14,15 @@
         flex-direction: row;
     }
 }
+
+@keyframes transitionIn{
+    from{
+      opacity : 0;
+      transform : rotateX(3.14rad)
+    }
+  
+    to{
+      opacity : 1;
+      transform : rotateX(0);
+    }
+  }
