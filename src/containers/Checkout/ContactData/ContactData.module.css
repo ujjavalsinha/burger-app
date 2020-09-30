@@ -1,0 +1,24 @@
+.ContactData{
+    display: flex;
+    flex-direction: column;
+    margin : 20px auto;
+    text-align : center;
+    box-shadow : 0 2px 3px #ccc;
+    border : 1px solid #eee;
+    padding : 10px;
+    box-sizing : border-box;
+    width : 50%;
+}
+
+.ContactData form{
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+    justify-content : space-evenly;
+}
+
+@media (max-width : 500px){
+    .ContactData{
+        width : 80%;
+    }
+}

@@ -71,12 +71,21 @@ class BurgerBuilder extends Component {
     transcriptHandler = (transcript) => {
         this.setState({answer : transcript})
     }
-    
+    purchaseContinueHandler = () =>{
+        const queryParams = []
+        for (let i in this.state.ingredients){
+            queryParams.push(encodeURIComponent(i)+"="+encodeURIComponent(this.state.ingredients[i]))
+        }
+        queryParams.push("price="+this.state.totalPrice)
+        const queryString = queryParams.join('&')
+        this.props.history.push({pathname:'/checkout',search : '?'+queryString})
+    }
     render() {
         let disabledInfo = {...this.state.ingredients} 
         for(let key in disabledInfo){
             disabledInfo[key] = disabledInfo[key]<=0
         }
+        
         
         return ( 
             <Auxiliary>
@@ -84,7 +93,8 @@ class BurgerBuilder extends Component {
                     <OrderSummary 
                         ingredients={this.state.ingredients} 
                         cancelorder={this.purchaseCancelHandler}
-                        price={this.state.totalPrice}/>
+                        price={this.state.totalPrice}
+                        continueorder={this.purchaseContinueHandler}/>
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/>
                 <BuildControls 
