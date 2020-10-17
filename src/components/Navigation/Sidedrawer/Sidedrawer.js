@@ -22,7 +22,7 @@ const Sidedrawer = props =>{
                 <div className={styles.Logo}>
                     <Logo/>
                 </div>
-                <NavigationItems/>
+                <NavigationItems isAuthenticated={props.isAuth}/>
             </div>
         </Auxiliary>
         

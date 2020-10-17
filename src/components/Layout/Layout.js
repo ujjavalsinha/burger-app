@@ -3,7 +3,7 @@ import Auxiliary from '../../hoc/Auxiliary';
 import styles from './Layout.module.css'
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import Sidedrawer from '../Navigation/Sidedrawer/Sidedrawer'
-
+import { connect } from 'react-redux'
 const Layout = (props) => {
     const [showSidedrawer, setShowSidedrawer] = useState(false)
     const sidedrawerClosedHandler = () =>{
@@ -16,9 +16,8 @@ const Layout = (props) => {
 
     return(
         <Auxiliary>
-            
-            <Toolbar toggleSidedrawer={sideDrawerTogglerHandler}/>
-            <Sidedrawer open={showSidedrawer} closed={sidedrawerClosedHandler}/>
+            <Toolbar isAuth={props.isAuth} toggleSidedrawer={sideDrawerTogglerHandler}/>
+            <Sidedrawer isAuth={props.isAuth} open={showSidedrawer} closed={sidedrawerClosedHandler}/>
             <main className={styles.main}>
                 {props.children}
             </main>
@@ -26,5 +25,9 @@ const Layout = (props) => {
     )    
     
 }
-
-export default Layout
+const mapStateToProps = state => {
+    return {
+        isAuth : state.auth.idToken !== null
+    }
+}
+export default connect(mapStateToProps)(Layout)

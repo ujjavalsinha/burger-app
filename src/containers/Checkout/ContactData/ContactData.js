@@ -3,6 +3,8 @@ import styles from './ContactData.module.css'
 import Button from '../../../components/UI/Button/Button'
 import axios from 'axios'
 import Spinner from '../../../components/UI/Spinner/Spinner'
+import * as actionTypes from '../../../store/actions/actionTypes'
+import * as orderActions from '../../../store/actions/index'
 import Input from '../../../components/UI/Input/Input'
 import { connect } from 'react-redux'
 const emailRegExp = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/)
@@ -95,11 +97,9 @@ class ContactData extends Component{
 
         },
         formIsValid : false,
-        loading : false
     }
     orderHandler = (e) =>{
         e.preventDefault()
-        this.setState({loading : true})
         let formData = {}
         for ( let formElementIdentifier in this.state.orderForm){
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
@@ -107,18 +107,11 @@ class ContactData extends Component{
         const order = {
             orderData : formData,
             ingredients : this.props.ings,
-            totalPrice : this.props.price
-
+            totalPrice : this.props.price,
+            userId : this.props.userId
         }
-        axios.post('https://react-my-burger-b7aaa.firebaseio.com//orders.json',order)
-        .then(response => {
-            console.log(response)
-            this.setState({loading : false})
-            this.props.history.push('/')
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        this.props.orderSubmit(order,this.props.token)
+        
     }
 
     checkValidity = (value,rules) =>{
@@ -174,10 +167,10 @@ class ContactData extends Component{
                         changed={(event)=>this.inputChangeHandler(event,formElement.id)}
                         />
                 })}  
-                <Button disabled={!this.state.formIsValid} clicked={(e)=>this.orderHandler(e)}btnType="Success" >ORDER</Button>
+                <Button disabled={!this.state.formIsValid} clicked={(e)=>this.orderHandler(e)} btnType="Success" >ORDER</Button>
             </form>
         )
-        if(this.state.loading === true){
+        if(this.props.loading === true){
             form = (
                 <div>
                     <Spinner/>
@@ -195,8 +188,17 @@ class ContactData extends Component{
 }
 const mapStateToProps = state => {
     return {
-        ings : state.ingredients,
-        price : state.price
+        ings : state.burgerBuilder.ingredients,
+        price : state.burgerBuilder.price,
+        loading : state.orders.loading,
+        token : state.auth.idToken,
+        userId : state.auth.localId
     }
 }
-export default connect(mapStateToProps)(ContactData)
+
+const mapDispatchToProps = dispatch => {
+    return {
+        orderSubmit : (orderData,token) => dispatch(orderActions.purchaseBurger(orderData,token)) 
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ContactData)
